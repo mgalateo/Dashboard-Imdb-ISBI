@@ -13,6 +13,10 @@ css_prova="""
     padding-left: 40%;
     padding-right: 40%;
 }
+[data-testid="collapsedControl"]{
+    color: white;
+   
+}
 [data-testid="stAppViewContainer"]{
     background-image: url(https://free4kwallpapers.com/uploads/originals/2022/07/16/-colorful-abstract-background-wallpaper.jpg);
     background-repeat: no-repeat;
@@ -35,7 +39,20 @@ css_prova="""
 [data-testid="stToolbar"]{
     color: white;
 }
+.css-1hverof:visited{
+    color:black;
+}
+.css-17lntkn{
+    color:black;
+}
+.css-17nby6i:visited{
+    background-color: rgb(255 255 255) !important
+}
 
+h2{
+    color: limegreen;
+    font-weight: bold !important;
+}
 
 
 </style>
