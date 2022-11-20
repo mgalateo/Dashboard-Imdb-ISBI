@@ -100,6 +100,15 @@ css-17nby6i.e1fqkh3o6{
     color: crimson;
     text-shadow: -1px 0 snow, 0 1px snow, 1px 0 snow, 0 -1px snow;
 }
+[id="minimo-rating"]{
+    color: crimson;
+}
+[id="minimo-score"]{
+    color: crimson;
+}
+[id="minimo-gross"]{
+    color: crimson;
+}
 
 [data-testid="stSidebar"]{
     background-color: dodgerblue;
@@ -235,6 +244,47 @@ with col2:
 
 with col3:
    st.metric(label="Minimo Gross", value=str(minFilteredG), delta=str(round(diffG,2))+"   Rispetto la media del Dataset")
+
+st.title("Minimo rating")
+dfRating = tab[
+    (tab['IMDB_Rating'] == minRatingFiltered) 
+    ]
+
+st.dataframe(dfRating)
+
+
+st.title("Minimo score")
+dfScore = tab[
+    (tab['Meta_score'] == minFiltered) 
+    ]
+
+st.dataframe(dfScore)
+
+st.title("Minimo gross")
+
+dfGross=tab
+
+vett=[]
+for i in tab['Gross']:
+            if(str(i)!="nan"):
+                a=i.replace(',','')
+                num=int(a)
+                vett.append(num)
+            else:
+                vett.append(0)
+
+#dfGross['GrossINT']=vett
+
+dfGross['Gross']=vett
+
+dfGrossFin=dfGross[
+    (dfGross['Gross'] == minFilteredG) 
+    ]
+
+
+
+st.dataframe(dfGrossFin)
+
 
 
 
