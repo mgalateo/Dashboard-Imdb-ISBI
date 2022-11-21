@@ -16,42 +16,107 @@ def calcoloMinimo():
     global minRatingGen
     global minRatingFiltered
     global diff
+    global mediaRatingGen
+    global mediaRatingFil
+    global diffMedia
+
+    mediaRatingGen=0
+    mediaRatingFil=0
+    diffMedia=0
+
+    somma=0.0
+    n=0
     minRatingGen=11
     for i in tab['IMDB_Rating']:
+        somma=somma+(float(i))
+        n=n+1
         if float(i)<=minRatingGen:
             minRatingGen=i
+    if n !=0:
+        mediaRatingGen=somma/n
 
+
+    somma=0.0
+    n=0    
     minRatingFiltered=11
+
     for i in df_filtered['IMDB_Rating']:
+        somma=somma+(float(i))
+        n=n+1
         if float(i)<=minRatingFiltered:
             minRatingFiltered=i
 
     diff=minRatingFiltered-minRatingGen
 
+    if n !=0:
+        mediaRatingFil=somma/n
+        diffMedia= mediaRatingFil- mediaRatingGen
+    else:
+        mediaRatingFil=0
+        diffMedia=0
+        minRatingFiltered=0
+
 def metaMinimo():
     global minGen
     global minFiltered
     global diffMeta
+    global mediaMetaGen
+    global mediaMetaFil
+    global diffMediaMeta
 
+
+    mediaMetaGen=0
+    mediaMetaFil=0
+    diffMediaMeta=0
+
+    somma=0.0
+    n=0
     minGen=999
     
     for i in tab['Meta_score']:
         if i != "<NA>":
-            if float(i)<=minGen:
-                    minGen=i
+            if(str(i)!="nan"):
+                somma=somma+(float(i))
+                n=n+1
+                if float(i)<=minGen:
+                        minGen=i
 
+    if n !=0:
+        mediaMetaGen=somma/n
+
+    somma=0
+    n=0
     minFiltered=999
     for i in df_filtered['Meta_score']:
         if i != "<NA>":
-            if float(i)<=minFiltered:
-                    minFiltered=i
+            if(str(i)!="nan"):
+                somma=somma+(int(i))
+                n=n+1
+                if float(i)<=minFiltered:
+                        minFiltered=i
 
+    if n !=0:
+        mediaMetaFil=somma/n
+        diffMediaMeta=mediaMetaFil-mediaMetaGen
+    else:
+        mediaMetaFil=0
+        diffMediaMeta=0
+        minFiltered=0
     diffMeta=minFiltered-minGen
 
 def GrossMinimo():
     global minGenG
     global minFilteredG
     global diffG
+    global mediaGrossGen
+    global mediaGrossFil
+    global diffMediaGross
+
+    mediaGrossGen=0
+    mediaGrossFil=0
+    diffMediaGross=0
+    somma=0
+    n=0
 
     minGenG=int(9999999999)
     
@@ -59,20 +124,35 @@ def GrossMinimo():
             if(str(i)!="nan"):
                 a=i.replace(',','')
                 num=int(a)
+                somma=somma+num
+                n=n+1
                 
                 if num<=minGenG:
                     minGenG=num
+    
+    if n !=0:
+        mediaGrossGen=somma/n
 
-
+    somma=0
+    n=0
     minFilteredG=int(99999999999)
     for i in df_filtered['Gross']:
         if(str(i)!="nan"):
             a=i.replace(',','')
             num=int(a)
+            somma=somma+num
+            n=n+1
             if num<=minFilteredG:
                 minFilteredG=num
 
     diffG=minFilteredG-minGenG
+    if n !=0:
+        mediaGrossFil=somma/n
+        diffMediaGross=mediaGrossFil-mediaGrossGen
+    else:
+        mediaGrossFil=0
+        diffMediaGross=0
+        minFilteredG=0
 
 css_prova="""
 <style>
@@ -237,13 +317,31 @@ st.dataframe(df_filtered)
 col1, col2, col3 = st.columns(3)
 
 with col1:
-   st.metric(label="Minimo IMDB Rating", value=str(minRatingFiltered), delta=str(round(diff,2))+"   Rispetto la media del Dataset")
+   st.metric(label="Minimo IMDB Rating", value=str(minRatingFiltered), delta=str(round(diff,2))+"   Rispetto  Dataset non filtrato")
 
 with col2:
-   st.metric(label="Minimo Meta Score", value=str(minFiltered), delta=str(round(diffMeta,2))+"   Rispetto la media del Dataset")
+   st.metric(label="Minimo Meta Score", value=str(minFiltered), delta=str(round(diffMeta,2))+"   Rispetto Dataset non filtrato")
 
 with col3:
-   st.metric(label="Minimo Gross", value=str(minFilteredG), delta=str(round(diffG,2))+"   Rispetto la media del Dataset")
+   st.metric(label="Minimo Gross", value=str(minFilteredG), delta=str(round(diffG,2))+"   Rispetto Dataset non filtrato")
+
+
+###calcolo della media
+
+
+
+
+col4, col5, col6 = st.columns(3)
+
+with col4:
+   st.metric(label="Media IMDB Rating", value=str(round(mediaRatingFil,3)), delta=str(round(diffMedia,3))+"   Rispetto Dataset non filtrato")
+
+with col5:
+   st.metric(label="Media Meta Score", value=str(round(mediaMetaFil,3)), delta=str(round(diffMediaMeta,3))+"   Rispetto  Dataset non filtrato")
+
+with col6:
+   st.metric(label="Media Gross", value=str(round(minFilteredG,3)), delta=str(round(diffG,3))+"   Rispetto Dataset non filtrato")
+
 
 st.title("Minimo rating")
 dfRating = tab[
