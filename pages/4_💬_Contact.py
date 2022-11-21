@@ -10,8 +10,7 @@ from IPython.core.display import display,HTML
 css_prova="""
 <style>
 [data-testid="stImage"]{
-    padding-left: 40%;
-    padding-right: 40%;
+    
 }
 [data-testid="collapsedControl"]{
     color: white;
@@ -68,4 +67,8 @@ st.set_page_config(
 
 
 st.title("Contact")
+
+imageC = Image.open('./Image/Contatti.png')
+st.image(imageC, width=1411)
+
 st.markdown(css_prova, unsafe_allow_html=True)

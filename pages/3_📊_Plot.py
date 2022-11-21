@@ -6,6 +6,7 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 from IPython.core.display import display,HTML
+import plotly.figure_factory as ff
 
 css_prova="""
 <style>
@@ -48,10 +49,22 @@ css_prova="""
 .css-17nby6i:visited{
     background-color: rgb(255 255 255) !important
 }
+.main-svg{
+    border-radius: 100px;
+    border-style: solid;
+    border-color: #1b96ff;
+    border-width: 17px;
+}
 
 h2{
     color: limegreen;
     font-weight: bold !important;
+}
+#grafico-generi{
+    color: lightgreen;
+    font-style: italic;
+    font-family: monospace;
+
 }
 
 
@@ -73,6 +86,49 @@ st.title("Plot")
 local_filename = 'imdb_top_1000.csv'
 
 tab = pd.read_csv(local_filename)
+tab.drop(['Poster_Link'], axis = 1, inplace = True)
+
+generi=tab["Genre"].unique()
+
+generivett=[]
+
+n=0
+for i in tab["Genre"]:
+    stringa=str(i)
+    if (',' in stringa):
+        genere=stringa.split(',')[0]
+        generivett.append(genere)
+        
+    else:
+        generivett.append(i)
+
+dfA=tab
+
+dfA['Genre']=generivett
+generiUnici=dfA['Genre'].unique()
+
+
+
+qta=[]    
+for gen in generiUnici:
+    q=generivett.count(gen)
+    qta.append(int(q))
+
+arr = np.array(qta)
+
+label=np.array(generiUnici)
+
+
+dataFrame = pd.DataFrame(list(zip(generiUnici,qta)), columns = ['Genere','Quantita'])
+
+st.title("Grafico generi 🎂")
+fig = px.pie(dataFrame, values='Quantita', names='Genere')
+
+# Plot!
+st.plotly_chart(fig, use_container_width=True)
+
+
+
 
 
 st.markdown(css_prova, unsafe_allow_html=True)
