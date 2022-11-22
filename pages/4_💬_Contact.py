@@ -9,9 +9,7 @@ from IPython.core.display import display,HTML
 
 css_prova="""
 <style>
-[data-testid="stImage"]{
-    
-}
+
 [data-testid="collapsedControl"]{
     color: white;
    
@@ -53,6 +51,19 @@ h2{
     font-weight: bold !important;
 }
 
+img{
+    border-radius: 100px;
+
+}
+img:hover{
+    scale: 1.1;
+}
+@media only screen and (max-width: 600px) {
+    img{
+        width: 400px !important;
+    }
+
+}
 
 </style>
 """
@@ -72,3 +83,5 @@ imageC = Image.open('./Image/Contatti.png')
 st.image(imageC, width=1411)
 
 st.markdown(css_prova, unsafe_allow_html=True)
+
+st.snow()

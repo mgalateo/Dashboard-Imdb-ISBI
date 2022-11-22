@@ -49,11 +49,13 @@ css_prova="""
 
 td{
     padding: 0px 0px 0px 0px !important;
+    color: darkblue !important;
 }
 tr{
     padding: 0px 0px 0px 0px !important;
     text-align: left !important;
     font-size: 14px !important;
+    color: darkblue !important;
 }
 tbody{
     padding: 0px 0px 0px 0px !important;
@@ -82,6 +84,7 @@ h2{
 
 
 </style>
+
 """
 
 

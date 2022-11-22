@@ -60,13 +60,18 @@ h2{
     color: limegreen;
     font-weight: bold !important;
 }
-#grafico-generi{
+#grafici-generi{
     color: lightgreen;
     font-style: italic;
     font-family: monospace;
 
 }
+#grafici-gross{
+    color: lightgreen;
+    font-style: italic;
+    font-family: monospace;
 
+}
 
 
 </style>
@@ -121,14 +126,15 @@ label=np.array(generiUnici)
 
 dataFrame = pd.DataFrame(list(zip(generiUnici,qta)), columns = ['Genere','Quantita'])
 
-st.title("Grafico generi 🎂")
+st.title("Grafici generi 🎂")
 fig = px.pie(dataFrame, values='Quantita', names='Genere')
 
 # Plot!
 st.plotly_chart(fig, use_container_width=True)
 
+fig2 = px.histogram(dataFrame, x='Genere', y='Quantita',color="Genere", text_auto=True)
+st.plotly_chart(fig2, use_container_width=True)
 
-
-
+st.title("Grafici Gross 💶")
 
 st.markdown(css_prova, unsafe_allow_html=True)
