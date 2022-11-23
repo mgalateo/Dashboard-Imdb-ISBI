@@ -182,6 +182,7 @@ for a in tab['Released_Year']:
 dfAnni['Gross']=vett
 dfAnni['Anno']=annoString
 
+dfAnni.sort_values(by=['Anno'], ascending = True, inplace = True)
 #st.line_chart(dfAnni,x='Anno')
 
 fig5 = px.histogram(dfAnni, x="Anno", y="Gross",color="Anno", title='Incassi negli anni')
