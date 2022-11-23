@@ -7,6 +7,7 @@ import numpy as np
 from PIL import Image
 from IPython.core.display import display,HTML
 import plotly.figure_factory as ff
+import statistics
 
 css_prova="""
 <style>
@@ -53,7 +54,8 @@ css_prova="""
     border-radius: 100px;
     border-style: solid;
     border-color: #1b96ff;
-    border-width: 17px;
+    border-width: 5px;
+    padding: 0px ;
 }
 
 h2{
@@ -127,14 +129,67 @@ label=np.array(generiUnici)
 dataFrame = pd.DataFrame(list(zip(generiUnici,qta)), columns = ['Genere','Quantita'])
 
 st.title("Grafici generi 🎂")
-fig = px.pie(dataFrame, values='Quantita', names='Genere')
+fig = px.pie(dataFrame, values='Quantita', names='Genere', title='Film per genere')
 
-# Plot!
+
 st.plotly_chart(fig, use_container_width=True)
 
-fig2 = px.histogram(dataFrame, x='Genere', y='Quantita',color="Genere", text_auto=True)
+fig2 = px.histogram(dataFrame, x='Genere', y='Quantita',color="Genere", text_auto=True, title='Film per genere')
 st.plotly_chart(fig2, use_container_width=True)
 
-st.title("Grafici Gross 💶")
+st.title("Grafici incassi 💶")
+
+
+dataMod=tab
+dataMod['Genre']=generivett
+
+vett=[]
+for i in tab['Gross']:
+            if(str(i)!="nan"):
+                a=i.replace(',','')
+                num=int(a)
+                vett.append(num)
+            else:
+                vett.append(0)
+
+dataMod['Gross']=vett
+
+fig3 = px.histogram(dataMod, x='Genre', y='Gross',color="Genre", text_auto=True, title='Totale incassi per genere')
+st.plotly_chart(fig3, use_container_width=True)
+
+dfAppoggio=pd.DataFrame()
+vettMedie=[]
+for j in generiUnici:
+    dfAppoggio=dataMod[dataMod['Genre']==j]
+    media=round(dfAppoggio['Gross'].mean(),2)
+    vettMedie.append(media)
+
+dfMedie=pd.DataFrame()
+dfMedie['Genere']=generiUnici
+dfMedie['Media']=vettMedie
+
+
+fig4 = px.histogram(dfMedie, x='Genere', y='Media',color="Genere", text_auto=True, title='Media incassi per genere')
+st.plotly_chart(fig4, use_container_width=True)
+
+
+dfAnni=pd.DataFrame()
+
+annoString=[]
+
+for a in tab['Released_Year']:
+    annoString.append(str(a))
+
+dfAnni['Gross']=vett
+dfAnni['Anno']=annoString
+
+#st.line_chart(dfAnni,x='Anno')
+
+fig5 = px.histogram(dfAnni, x="Anno", y="Gross",color="Anno", title='Incassi negli anni')
+st.plotly_chart(fig5, use_container_width=True)
+
+
+
+
 
 st.markdown(css_prova, unsafe_allow_html=True)

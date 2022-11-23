@@ -116,8 +116,10 @@ for url in df['Poster_Link']:
     thumbnail_url = '<img src="'+ url + '"  >'
     thumbnails.append(thumbnail_url)
 
-df['Thombnail']=thumbnails
+df['Thumbnail']=thumbnails
 df.drop(['Poster_Link'], axis = 1, inplace = True)
+
+df=df[['Thumbnail','Series_Title','Released_Year','Certificate','Runtime','Genre','IMDB_Rating','Overview','Meta_score','Director','Star1','Star2','Star3','Star4','No_of_Votes','Gross']]
 
 tabella=df.to_html(escape=False)
 

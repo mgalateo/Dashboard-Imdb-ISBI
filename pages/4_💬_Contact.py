@@ -52,11 +52,23 @@ h2{
 }
 
 img{
-    border-radius: 100px;
+    border-radius: 125px;
 
 }
 img:hover{
     scale: 1.1;
+}
+#spazio{
+    padding:10px;
+
+}
+#gitHub{
+    text-align: center;
+
+
+}
+h3{
+    color: snow;
 }
 @media only screen and (max-width: 600px) {
     img{
@@ -66,6 +78,16 @@ img:hover{
 }
 
 </style>
+"""
+bottone="""
+<div>
+    <div id="spazio">
+    <div>
+    <div id="gitHub">
+        <a href="https://github.com/mgalateo/Dashboard-Imdb-ISBI"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0zoEI0fhI8N5-2qC35jCUOfpXBZz9FjBEJxqY80CvzdRX8Zrzo6CC-C0MQQpkz8aYDIM&usqp=CAU" /></a>
+        <h3>Premi per visualizzare la repository</h3>  
+    </div>
+</div>
 """
 
 
@@ -81,6 +103,10 @@ st.title("Contact")
 
 imageC = Image.open('./Image/Contatti.png')
 st.image(imageC, width=1411)
+
+
+
+st.markdown(bottone,unsafe_allow_html=True)
 
 st.markdown(css_prova, unsafe_allow_html=True)
 
