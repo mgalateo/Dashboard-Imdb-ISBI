@@ -7,7 +7,6 @@ import numpy as np
 from PIL import Image
 from IPython.core.display import display,HTML
 import plotly.figure_factory as ff
-import statistics
 
 css_prova="""
 <style>
@@ -68,7 +67,7 @@ h2{
     font-family: monospace;
 
 }
-#grafici-gross{
+#grafici-incassi{
     color: lightgreen;
     font-style: italic;
     font-family: monospace;
