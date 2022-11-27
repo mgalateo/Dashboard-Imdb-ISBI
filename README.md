@@ -20,7 +20,7 @@ streamlit run .\1_??_Home.py
 
 ## Screenshot  :file_folder:
 
-![Demo screenshot](/image/cattura.png)
+![Demo screenshot](/Image/cattura.png)
 
 ## Demo
 
